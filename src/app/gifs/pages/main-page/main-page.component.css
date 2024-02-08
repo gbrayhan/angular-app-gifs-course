@@ -1,0 +1,14 @@
+.main-page-container {
+  background-color: #be17a8;
+  height: 100%;
+  width: 100%;
+}
+
+
+.float-container {
+  padding-top: 2rem;
+  width: 50rem;
+  height: 100%;
+  margin: 0 auto;
+  background-color: rgba(41, 136, 203, 0.88);
+}
