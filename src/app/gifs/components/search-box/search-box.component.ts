@@ -19,9 +19,10 @@ export class SearchBoxComponent {
 
     const value = this.searchInput.nativeElement.value;
     this.GifsService.searchTag(value);
-    console.log('searching for:', value);
 
-    console.log(this.GifsService.tagsHistory);
+    console.log(this.GifsService.historyItems);
+    // clear input
+    this.searchInput.nativeElement.value = '';
   }
 
 }

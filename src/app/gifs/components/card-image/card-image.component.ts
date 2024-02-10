@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {Gif} from "../../interfaces/gifs";
+import {DataGif} from "../../interfaces/http/giphy";
 
 @Component({
   selector: 'app-card-image',
@@ -14,10 +15,6 @@ import {Gif} from "../../interfaces/gifs";
 export class CardImageComponent {
 
   @Input()
-  public cardImage: Gif = {
-    name: '',
-    description: '',
-    url: ''
-  }
+  public dataGif!: DataGif;
 
 }

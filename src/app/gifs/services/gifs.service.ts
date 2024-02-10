@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {ResponseSearchGiphy} from "../interfaces/http/giphy";
+import {DataGif, ResponseSearchGiphy} from "../interfaces/http/giphy";
 
 
 
@@ -12,28 +12,35 @@ export class GifsService {
   * Documentation:
   * https://developers.giphy.com/docs/api/#quick-start-guide
   */
-  private apiKey: string = 'YOUR_API_KEY';
+  private apiKey: string = 'KEY_API_GIPHY';
   private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
 
-  private _tagsHistory: string[] = [];
+  private _historyItems: string[] = [];
+  private _gifs: DataGif[] = [];
 
   constructor( private http: HttpClient) {
+    this.readLocalStorage();
   }
 
   private organizeTagsHistory(newTag: string): void {
-    if( this._tagsHistory.includes(newTag) ) {
-      this._tagsHistory = this._tagsHistory.filter(tag => tag !== newTag);
+    if( this._historyItems.includes(newTag) ) {
+      this._historyItems = this._historyItems.filter(tag => tag !== newTag);
     }
 
-    this._tagsHistory.unshift(newTag);
+    this._historyItems.unshift(newTag);
 
-    if(this._tagsHistory.length > 10) {
-      this._tagsHistory = this._tagsHistory.splice(0, 10);
+    if(this._historyItems.length > 10) {
+      this._historyItems = this._historyItems.splice(0, 10);
     }
+    this.saveLocalStorage();
   }
 
-  get tagsHistory(): string[] {
-    return [...this._tagsHistory];
+  get historyItems(): string[] {
+    return [...this._historyItems];
+  }
+
+  get listGifs(): DataGif[] {
+    return [...this._gifs];
   }
 
   public searchTag(tag: string): void {
@@ -41,8 +48,6 @@ export class GifsService {
       return;
     }
     this.organizeTagsHistory(tag)
-
-
     const params = new HttpParams()
       .set('api_key', this.apiKey)
       .set('q', tag)
@@ -50,10 +55,32 @@ export class GifsService {
 
     this.http.get<ResponseSearchGiphy>(`${this.serviceUrl}/search`, {params})
       .subscribe((response: ResponseSearchGiphy) => {
-        console.log(response.data);
+        this._gifs = response.data;
+    });
+  }
+
+  public selectHistoryItem(item: string): void {
+    const params = new HttpParams()
+      .set('api_key', this.apiKey)
+      .set('q', item)
+      .set('limit', '10');
+
+    debugger;
+
+    this.http.get<ResponseSearchGiphy>(`${this.serviceUrl}/search`, {params})
+      .subscribe((response: ResponseSearchGiphy) => {
+        this._gifs = response.data;
+      });
+  }
+
+  saveLocalStorage(): void {
+    localStorage.setItem('historyItems', JSON.stringify(this._historyItems));
+  }
+
+  readLocalStorage(): void {
+    const historyItems = localStorage.getItem('historyItems');
+    if(historyItems) {
+      this._historyItems = JSON.parse(historyItems);
     }
-    );
-
-
   }
 }

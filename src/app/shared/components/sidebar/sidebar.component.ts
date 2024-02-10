@@ -16,8 +16,12 @@ export class SidebarComponent {
   constructor(private GifsService: GifsService) {
   }
 
-  public get tagsHistory() {
-    return this.GifsService.tagsHistory;
+  public get historyItems() {
+    return this.GifsService.historyItems;
+  }
+
+  public onClickHistoryItem(tag: string): void {
+    this.GifsService.selectHistoryItem(tag);
   }
 
 }

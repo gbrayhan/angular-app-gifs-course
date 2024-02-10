@@ -1,10 +1,10 @@
 export interface ResponseSearchGiphy {
-  data: DataGifs[]
+  data: DataGif[]
   meta: Meta
   pagination: Pagination
 }
 
-export interface DataGifs {
+export interface DataGif {
   type: string
   id: string
   url: string
@@ -22,13 +22,13 @@ export interface DataGifs {
   is_sticker: number
   import_datetime: string
   trending_datetime: string
-  images: Images
+  images: ImagesGif
   analytics_response_payload: string
   analytics: Analytics
   user?: User
 }
 
-export interface Images {
+export interface ImagesGif {
   original: Original
   downsized: Downsized
   downsized_large: DownsizedLarge
