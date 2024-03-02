@@ -3,7 +3,6 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {DataGif, ResponseSearchGiphy} from "../interfaces/http/giphy";
 
 
-
 @Injectable({providedIn: 'root'})
 export class GifsService {
 
@@ -12,7 +11,7 @@ export class GifsService {
   * Documentation:
   * https://developers.giphy.com/docs/api/#quick-start-guide
   */
-  private apiKey: string = 'KEY_API_GIPHY';
+  private apiKey: string = 'apiKeyHere'; // this shoud be o backend
   private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
 
   private _historyItems: string[] = [];

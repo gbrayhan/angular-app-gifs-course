@@ -1,0 +1,20 @@
+
+
+
+<!-- Imagen de carga -->
+<div *ngIf="!hasLoaded" class="container-lazy-image">
+  <img class="card-img-loader" src="assets/tail-spin.svg" alt="">
+</div>
+
+<!-- Imagen principal -->
+<img (load)="onLoaded()"
+     class="card-img"
+     [alt]="alt"
+     [src]="url"
+     [ngStyle]="{ 'display': hasLoaded ? 'block' : 'none', 'opacity': hasLoaded ? '1' : '0', 'transition': 'opacity' }"
+
+>
+
+
+
+

@@ -1,8 +1,7 @@
 
 <div class="container-card">
-  <img class="card-img"
-       [alt]="dataGif.title" [src]="dataGif.images.downsized_medium.url">
-
+  <shared-lazy-image
+    [alt]="dataGif.title" [url]="dataGif.images.downsized_medium.url"/>
   <div class="card-text">
     <h2 class="card-text-name">{{ dataGif.title }}</h2>
     <p class="card-text-description">{{ dataGif.title }}</p>
